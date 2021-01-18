@@ -5,10 +5,22 @@ import Content from "./components/Content.js"
 import './App.css';
 
 class App extends Component { 
+  constructor(props){// props를 쓰기 위해서는 왼쪽의 코드들이 필요한데, 이해하려고 하기보단 일단 그려려니 해보자.
+    super(props); // state의 값을 초기화 하려고 한다.
+                  // 어떠한 component가 실행 될 때, render()보다 먼저 실행되고 
+                  // 그 component를 초기화 시켜주고 싶은 코드는 constructor 안에 코드를 작성한다!!!!   
+    this.state = { // state 값을 초기화!
+      Subject : { title : "WEB", sub : "World Wide Web!" }
+    } 
+  } 
   render() {
     return (
       <div className="App">
-        <Subject title = "WEB" sub = "world wide web"></Subject>
+        <Subject 
+        // 상위 component의 state값을 하위 component의 props의 값으로 전달하는 것은 언제든지 가능!
+          title = {this.state.Subject.title} 
+          sub = {this.state.Subject.title}>
+        </Subject>
         <Subject title = "React" sub = "For UI"></Subject>
         <TOC></TOC>   
         <Content title = "HTML" desc = "HTML is HyperText Markup"></Content>   
