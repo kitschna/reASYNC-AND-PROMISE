@@ -10,7 +10,12 @@ class App extends Component {
                   // 어떠한 component가 실행 될 때, render()보다 먼저 실행되고 
                   // 그 component를 초기화 시켜주고 싶은 코드는 constructor 안에 코드를 작성한다!!!!   
     this.state = { // state 값을 초기화!
-      Subject : { title : "WEB", sub : "World Wide Web!" }
+      Subject : { title: "WEB", sub: "World Wide Web!" }, // 여러개의 값을 다룰때는 사용법이 달라진다.
+      contents : [ // 자료가 여러개라서 배열로 만듭니다.
+        { id: 1, title: 'HTML', desc: 'HTML is for information' },
+        { id: 2, title: 'CSS', desc: 'CSS is for design' },
+        { id: 3, title: 'JavaScript', desc: 'JavaScript is for interactive' }
+      ]
     } 
   } 
   render() {
@@ -22,12 +27,13 @@ class App extends Component {
           sub = {this.state.Subject.title}>
         </Subject>
         <Subject title = "React" sub = "For UI"></Subject>
-        <TOC></TOC>   
+        <TOC data={this.state.contents}></TOC>   
         <Content title = "HTML" desc = "HTML is HyperText Markup"></Content>   
       </div>
     )
   }
 }
+
 
 export default App;
 
