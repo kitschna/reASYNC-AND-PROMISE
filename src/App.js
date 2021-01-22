@@ -31,27 +31,43 @@ class App extends Component {
       _title = this.state.contents[0].title
       _desc = this.state.contents[0].desc
     }
+    console.log('render', this)
     return (
       <div className="App">
-        {/* <Subject 
+        <Subject 
         // 상위 component의 state값을 하위 component의 props의 값으로 전달하는 것은 언제든지 가능!
           title = {this.state.subject.title} 
-          sub = {this.state.subject.sub}>
-        </Subject> */}
-      <header> 
+          sub = {this.state.subject.sub}
+          onChangePage = {function(){
+            alert('hi!hi!hi!')
+            this.setState({mode:'welcome'})
+          }.bind(this)}
+          >
+        </Subject>
+      {/* <header> 
 			  <h1><a href="/" onClick={function(e){
+          // console.log('event in', this) // 기본적으로 this는 render함수가 속해있는 coponent 자체를 가르킴.
+          // return;
           console.log(e);
           e.preventDefault(); //a태그의 기본적인 동작을 방지
-          this.state.mode = 'welcome' // <- 여기서 this는 undefinede임 그래서 bind가 필요!!!
+          // this.state.mode = 'welcome' // <- 여기서 this는 undefinede임 그래서 bind가 필요!!!
+          // 위처럼 값을 바꾸면 react 몰래 값을 바꾼것이 됨.
           // 스프린트에서 함수뒤에 bind쓴것 이제야 이해함. 하지만 이렇게 코드를 짜면 안됨. 공식문서 참조할 것
           this.setState({ // <- this.setState을 쓰는이유가 바로 이거임!! react가 하라는데로 해야함! 공식문서!!
             // bind(), setState() 가 꼭 필요하다!!
+            // 동적으로 바꿔줄때는 꼭 setState를 써야함
             mode:'welcome'
           })
         }.bind(this)}>{this.state.subject.title}</a></h1>
 			  {this.state.subject.sub}
-		  </header>
-        <TOC data={this.state.contents}></TOC>   
+		  </header> */}
+        <TOC 
+          onChangePage={function(){
+            alert('hi')
+            this.setState({mode:'read'})
+          }.bind(this)}
+          data={this.state.contents}
+        ></TOC>   
         <Content title={_title} desc ={_desc}></Content>   
       </div>
     )
