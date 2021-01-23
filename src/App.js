@@ -11,6 +11,7 @@ class App extends Component {
                   // 그 component를 초기화 시켜주고 싶은 코드는 constructor 안에 코드를 작성한다!!!!   
     this.state = { // state 값을 초기화!
       mode: 'read',
+      selected_content_id: 2,
       subject: { title: "WEB", sub: "World Wide Web!" }, // 여러개의 값을 다룰때는 사용법이 달라진다.
       welcome: {title: 'welcome', desc: 'Hello, React!!'},
 
@@ -28,8 +29,18 @@ class App extends Component {
       _title = this.state.welcome.title
       _desc = this.state.welcome.desc
     } else if(this.state.mode === 'read'){
-      _title = this.state.contents[0].title
-      _desc = this.state.contents[0].desc
+        var i = 0;
+        while(i < this.state.contents.length){
+          var data = this.state.contents[i];
+          if(data.id === this.state.selected_content_id){
+            _title = data.title
+            _desc = data.desc        
+            break;    
+          }
+          i = i + 1
+        }
+      // _title = this.state.contents[0].title
+      // _desc = this.state.contents[0].desc
     }
     console.log('render', this)
     return (
@@ -62,9 +73,11 @@ class App extends Component {
 			  {this.state.subject.sub}
 		  </header> */}
         <TOC 
-          onChangePage={function(){
-            alert('hi')
-            this.setState({mode:'read'})
+          onChangePage={function(id){
+              this.setState({
+              mode:'read',
+              selected_content_id: Number(id)
+            })
           }.bind(this)}
           data={this.state.contents}
         ></TOC>   
