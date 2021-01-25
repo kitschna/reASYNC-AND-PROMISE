@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TOC from "./components/TOC.js"
 import Subject from "./components/Subject.js"
 import Content from "./components/Content.js"
+import Control from "./components/Control.js"
 import './App.css';
 
 class App extends Component { 
@@ -80,13 +81,18 @@ class App extends Component {
             })
           }.bind(this)}
           data={this.state.contents}
-        ></TOC>   
+        ></TOC>
+         <Control onChangeMode={function(_mode){
+           this.setState({
+            mode:_mode
+          });
+         }.bind(this)}></Control>
         <Content title={_title} desc ={_desc}></Content>   
       </div>
     )
   }
 }
-
+// 이벤트가 실행 됐을때, 실행되어야 하는 함수를 
 
 export default App;
 
