@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import TOC from "./components/TOC.js"
 import Subject from "./components/Subject.js"
-import Content from "./components/Content.js"
+import ReadContent from "./components/ReadContent.js"
+import CreateContent from "./components/CreateContent.js"
 import Control from "./components/Control.js"
-import './App.css';
+
+import './App.css'; 
 
 class App extends Component { 
   constructor(props){// props를 쓰기 위해서는 왼쪽의 코드들이 필요한데, 이해하려고 하기보단 일단 그려려니 해보자.
@@ -25,10 +27,11 @@ class App extends Component {
   } // React에서는 'props'나 'state'의 값이 바뀌면 해당되는 component의 render함수가 호출되도록 약속되어 있디.
     // 다시 말하면, 'props'나 'state'의 값이 바뀌면 화면이 다시 그려진다 라는 말!!
   render() {
-    var _title, _desc = null;
+    var _title, _desc, _article = null;
     if(this.state.mode === 'welcome'){
       _title = this.state.welcome.title
       _desc = this.state.welcome.desc
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>
     } else if(this.state.mode === 'read'){
         var i = 0;
         while(i < this.state.contents.length){
@@ -40,8 +43,11 @@ class App extends Component {
           }
           i = i + 1
         }
+        _article = <ReadContent title={_title} desc={_desc}></ReadContent>
       // _title = this.state.contents[0].title
       // _desc = this.state.contents[0].desc
+    } else if(this.state.mode === 'create'){
+      _article = <CreateContent></CreateContent>
     }
     console.log('render', this)
     return (
@@ -87,7 +93,7 @@ class App extends Component {
             mode:_mode
           });
          }.bind(this)}></Control>
-        <Content title={_title} desc ={_desc}></Content>   
+        {_article}   
       </div>
     )
   }
