@@ -13,7 +13,7 @@ class App extends Component {
                   // 어떠한 component가 실행 될 때, render()보다 먼저 실행되고 
                   // 그 component를 초기화 시켜주고 싶은 코드는 constructor 안에 코드를 작성한다!!!!   
     this.state = { // state 값을 초기화!
-      mode: 'read',
+      mode: 'create',
       selected_content_id: 2,
       subject: { title: "WEB", sub: "World Wide Web!" }, // 여러개의 값을 다룰때는 사용법이 달라진다.
       welcome: {title: 'welcome', desc: 'Hello, React!!'},
@@ -47,7 +47,10 @@ class App extends Component {
       // _title = this.state.contents[0].title
       // _desc = this.state.contents[0].desc
     } else if(this.state.mode === 'create'){
-      _article = <CreateContent></CreateContent>
+      _article = <CreateContent onSubmit={function(_title, _desc){
+        // add content to this.state.contents
+        console.log(_title, _desc)
+      }.bind(this)}></CreateContent>
     }
     console.log('render', this)
     return (
