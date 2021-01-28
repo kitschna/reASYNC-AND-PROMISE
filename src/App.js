@@ -12,12 +12,12 @@ class App extends Component {
     super(props); // state의 값을 초기화 하려고 한다.
                   // 어떠한 component가 실행 될 때, render()보다 먼저 실행되고 
                   // 그 component를 초기화 시켜주고 싶은 코드는 constructor 안에 코드를 작성한다!!!!   
+    this.max_content_id = 3;
     this.state = { // state 값을 초기화!
       mode: 'create',
       selected_content_id: 2,
       subject: { title: "WEB", sub: "World Wide Web!" }, // 여러개의 값을 다룰때는 사용법이 달라진다.
       welcome: {title: 'welcome', desc: 'Hello, React!!'},
-
       contents : [ // 자료가 여러개라서 배열로 만듭니다.
         { id: 1, title: 'HTML', desc: 'HTML is for information' },
         { id: 2, title: 'CSS', desc: 'CSS is for design' },
@@ -49,10 +49,20 @@ class App extends Component {
     } else if(this.state.mode === 'create'){
       _article = <CreateContent onSubmit={function(_title, _desc){
         // add content to this.state.contents
-        console.log(_title, _desc)
+        this.max_content_id = this.max_content_id + 1;
+        // this.state.contents.push( 
+        //   {id:this.max_content_id, title:_title, desc:_desc}
+        // );
+        // push는 원본을 바꾸기 때문에, concat을 쓴다.
+        let _contents = this.state.contents.concat(
+          {id:this.max_content_id, title:_title, desc:_desc}
+        )
+        this.setState({
+          contents : _contents
+      })
+        console.log('title : ',_title, 'desc : ',_desc)
       }.bind(this)}></CreateContent>
     }
-    console.log('render', this)
     return (
       <div className="App">
         <Subject 
